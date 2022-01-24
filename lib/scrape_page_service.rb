@@ -23,7 +23,7 @@ class ScrapePageService
   end
 
 
-  def send_request(**kwargs)
+  def self.send_request(**kwargs)
     agent = get_agent_object(kwargs[:read_timeout], kwargs[:open_timeout], kwargs[:idle_timeout])
     tries = 0
     max_tries = kwargs[:max_retries]
