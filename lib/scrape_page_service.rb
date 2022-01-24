@@ -2,11 +2,8 @@ require "mechanize"
 
 class ScrapePageService
 
-  def initialize
-    @agents = File.readlines("user_agents.txt")
-  end
 
-  def get_agent_object(read_timeout, open_timeout, idle_timeout)
+  def self.get_agent_object(read_timeout, open_timeout, idle_timeout)
     agent = Mechanize.new
     agent.read_timeout = read_timeout
     agent.open_timeout = open_timeout
@@ -17,7 +14,8 @@ class ScrapePageService
     agent
   end
   
-  def set_agent_proxy(agent, ip, port, username, password)
+  def self.set_agent_proxy(agent, ip, port, username, password)
+    @agents = File.readlines("user_agents.txt")
     agent.user_agent =  @agents.sample.strip
     agent.set_proxy(ip, port, username, password)
   end
@@ -54,7 +52,7 @@ class ScrapePageService
     return page
   end
 
-  def refresh_agent(agent)
+  def self.refresh_agent(agent)
     agent.cookie_jar.clear!
     agent.history.clear
   end
